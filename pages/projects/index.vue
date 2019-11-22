@@ -42,7 +42,6 @@ export default {
     getListOfProject(this.token)
       .then((list) => {
         this.projectsList = list;
-        console.log(list);
         this.$store.projectsList = list;
       });
   },
