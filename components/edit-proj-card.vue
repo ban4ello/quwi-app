@@ -19,13 +19,13 @@
     </div>
 
     <div class="edit-proj-card-avatar">
-      <avatar :src="proj.logo_url" :size="80" :username="proj.name"></avatar>
+      <avatar :src="projCard.logo_url" :size="80" :username="projCard.name || ''"></avatar>
     </div>
   </div>
 </template>
 <script>
 import Avatar from 'vue-avatar'
-import { editProject } from '../store/api/index.js';
+import { editProject, getListOfProject } from '~/store/api/index.js';
 
 export default {
   components: {
@@ -39,27 +39,36 @@ export default {
   data() {
     return {
       projName: '',
+      projCard: {},
     }
-  },
-
-  computed: {
-    token () {
-      return this.$store.token;
-    },
   },
 
   methods: {
     updateProj () {
       editProject({
-        token: this.token,
         id: this.proj.id,
         newName: this.projName,
+        axios: this.$axios,
       });
     }
   },
 
   created() {
-    this.projName = this.proj.name;
+    if (!this.proj) {
+      getListOfProject(this.$axios)
+        .then((list) => {
+          this.projCard = list.find((el) => {
+            
+            return el.id == this.$route.params.id;
+          });
+          this.projName = this.projCard.name;
+        });
+
+    } else {
+      this.projCard = this.proj;
+    }
+
+    this.projName = this.projCard.name;
   },
 };
 </script>

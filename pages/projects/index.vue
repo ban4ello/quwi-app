@@ -11,13 +11,14 @@
 <script>
 import { getListOfProject, logOutApi } from '~/store/api/index.js';
 import projCard from '~/components/proj-card.vue';
-import Avatar from 'vue-avatar'
+import Avatar from 'vue-avatar';
 
 export default {
   components: {
     Avatar,
     projCard,
   },
+  middleware: 'auth',
 
   data () {
     return {
@@ -27,22 +28,22 @@ export default {
 
   computed: {
     token () {
-      return this.$store.token;
+      return this.$store.state.token;
     }
   },
 
   methods: {
     logout () {
-      logOutApi({ token: this.token });
-      this.$router.push({ name: 'login' });
+      this.$auth.logout()
+        .then(() => this.$router.push({ name: 'login' }));
     },
   },
-  
-  mounted() {
-    getListOfProject(this.token)
+
+  created() {
+    getListOfProject(this.$axios)
       .then((list) => {
         this.projectsList = list;
-        this.$store.projectsList = list;
+        this.$store.commit('updateState', { key: 'projectsList', value: list })
       });
   },
 

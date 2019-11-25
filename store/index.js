@@ -9,6 +9,12 @@ const store = () => new Vuex.Store({
     token: '',
     projectsList: [],
   },
-})
+
+  mutations: {
+    updateState (state, { key, value }) {
+      state[key] = value;
+    },
+  },
+});
 
 export default store

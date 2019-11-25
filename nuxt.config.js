@@ -13,6 +13,28 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
+
+  modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/auth'
+  ],
+
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: '/auth/login', method: 'post', propertyName: 'token' },
+          logout: { url: '/auth/logout', method: 'post' },
+          user: { url: '/auth/init', method: 'get', propertyName: 'user' }
+        },
+      }
+    }
+  },
+
+  axios: {
+    baseURL: 'https://api.quwi.com/v2/',
+    withCredentials: true,
+  },
   /*
   ** Customize the progress bar color
   */

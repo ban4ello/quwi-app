@@ -10,13 +10,15 @@
 import editProjCard from '~/components/edit-proj-card.vue';
 
 export default {
+  middleware: 'auth',
+
   components: {
     editProjCard,
   },
 
   computed: {
     project () {
-      return this.$store.projectsList.find((el) => {
+      return this.$store.state.projectsList.find((el) => {
         return el.id === this.$route.params.id;
       });
     },

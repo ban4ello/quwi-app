@@ -11,34 +11,33 @@
 </template>
 
 <script>
-import { loginApi, getListOfProject } from '~/store/api/index.js';
-
 export default {
   data () {
     return {
-      email: 'ban4elloid@icloud.com',
-      password: '123456',
+      email: '',
+      password: '',
       showErrorMess: false,
     };
   },
 
   methods: {
     send () {
-      loginApi({ email: this.email, password: this.password })
-        .then((token) => {
-          if (token) {
-            this.showErrorMess = false;
-            this.$store.token = token;
-  
-            this.$router.push({ name: 'projects' })
-          } else {
-            this.showErrorMess = true;
-            console.warn('Invalid authorization');
-          }
-        });
+      this.$auth.loginWith('local', {
+        data: {
+          email: this.email,
+          password: this.password,
+        }
+      })
+      .then(() => {
+        this.showErrorMess = false;
+        this.$router.push({ name: 'projects' })
+      })
+      .catch((err) => {
+        this.showErrorMess = true;
+        console.warn('Invalid authorization', err);
+      });
     }
   },
-
 };
 </script>
 <style scoped lang="scss">
