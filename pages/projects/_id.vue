@@ -1,19 +1,19 @@
 <template>
   <div class="edit-proj-page">
-    <div class="topbar">
-      <button @click="back">BACK</button>
-    </div>
+    <topbar></topbar>
     <edit-proj-card :proj="project" class="edit-block"></edit-proj-card>
   </div>
 </template>
 <script>
 import editProjCard from '~/components/edit-proj-card.vue';
+import topbar from '~/components/topbar.vue';
 
 export default {
   middleware: 'auth',
 
   components: {
     editProjCard,
+    topbar,
   },
 
   computed: {
@@ -23,32 +23,5 @@ export default {
       });
     },
   },
-
-  methods: {
-    back () {
-      this.$router.go(-1)
-    },
-  },
 };
 </script>
-<style scoped lang="scss">
-  .edit-proj-page {
-    .topbar {
-      min-height: 50px;
-      width: 100%;
-      background-color: #c1c8d2;
-      padding: 10px;
-
-      button {
-        border-radius: 5px;
-        height: 36px;
-        background-color: #eee;
-        cursor: pointer;
-
-        &:hover {
-          opacity: 0.8;
-        }
-      }
-    }
-  }
-</style>
