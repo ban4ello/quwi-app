@@ -1,7 +1,11 @@
 <template>
   <div class="home-page">
     <div class="topbar">
-      <button @click="logout">logout</button>
+      <div class="logo">Q</div>
+      <div class="title">
+        <a  href="/projects" class="projects">projects</a>
+        <span class="logout" @click="logout">logout</span>
+      </div>
     </div>
     <div class="project-card-container">
       <proj-card v-for="proj in projectsList" :proj="proj" :key="proj.id"  :class="{ 'isInActive': !proj.is_active }"></proj-card>
@@ -51,34 +55,50 @@ export default {
 </script>
 <style lang="scss">
   .home-page {
-    margin: 15px auto 50px;
-    width: 600px;
+    width: 100%;
+    height: 100%;
     position: relative;
+    background-color: #f1f1f1;
+    
 
     .topbar {
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      justify-items: end;
+      align-items: center;
+      background-color: #f9f9f9;
       min-height: 50px;
       width: 100%;
-      background-color: #c1c8d2;
       padding: 10px;
 
-      button {
-        border-radius: 5px;
-        height: 36px;
-        background-color: #eee;
-        cursor: pointer;
+      .logo {
+        font-weight: bold;
+        font-size: 30px;
+      }
 
-        &:hover {
-          opacity: 0.8;
+      .title {
+        .logout, .projects {
+          text-transform: uppercase;
+          cursor: pointer;
+          font-size: 14px;
+          padding-right: 10px;
+          text-decoration: none;
+          color: inherit;
+
+          &:hover {
+            opacity: 0.8;
+          }
         }
       }
+
     }
   }
 
   .project-card-container {
     -webkit-box-align: center;
     align-items: center;
-    margin-bottom: 6px;
-    width: 100%;
+    margin: 10px auto;
+    width: 600px;
     -ms-flex-align: center;
     position: relative;
   }
