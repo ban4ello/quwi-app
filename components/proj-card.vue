@@ -122,8 +122,8 @@ export default {
     white-space: nowrap;
     margin-top: 2px;
     margin-left: 32px;
-    min-width: 162px;
-    max-width: 162px;
+    min-width: 170px;
+    max-width: 170;
 
     .proj-time-item {
       display: flex;
